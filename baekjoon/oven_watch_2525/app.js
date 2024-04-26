@@ -9,19 +9,21 @@ const [a, b] = fs.readFileSync("../input.txt").toString().split("\n");
 const [hour, minute] = a.split(" ").map(Number)
 const cookingTime = Number(b);
 
-console.log(hour, minute, cookingTime, '입력');
 const ovenWatch = (hour, minute, time) => {
-    const sumMinute = minute + time;
     // sumMinute의 나머지는 분으로 활용
-    const outputHour = Math.floor(sumMinute / 60);
-    const outputMinute = sumMinute % 60;
-    console.log(outputHour, outputMinute)
+    const hourInMinute = hour * 60;
+    // 현재 시각의 분과 cookingTime을 더함
+    const sumMinute = minute + time;
+    const totalTime = hourInMinute + sumMinute;
+    const printMinute = totalTime % 60;
+    const printHour = Math.floor(totalTime / 60);
+
+    // 최종 시간이 24시간의 나머지 값을 구하고 나머지는 결국 출력될 시간이됨
+    if(printHour >= 24){
+        console.log(printHour % 24, printMinute);
+    } else {
+        console.log(printHour, printMinute);
+    }
 }
 
 ovenWatch(hour, minute, cookingTime);
-// const cookingMinute = Number(b);
-
-// b가 60보다 크면
-
-
-// console.log(H, M);
